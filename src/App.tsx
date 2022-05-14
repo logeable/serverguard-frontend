@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+import AppLayout from "./containers/AppLayout";
+import DashboardPage from "./pages/DashboardPage";
+import InternalErrorPage from "./pages/InternalErrorPage";
+import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<Navigate to="/dashboard" />}></Route>
+        <Route path="dashboard" element={<DashboardPage />}></Route>
+      </Route>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/404" element={<NotFoundPage />}></Route>
+      <Route path="/500" element={<InternalErrorPage />}></Route>
+      <Route path="*" element={<Navigate to="/404" />}></Route>
+    </Routes>
   );
 }
 
